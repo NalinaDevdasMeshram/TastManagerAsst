@@ -13,7 +13,9 @@ export default function FilterTabs({ filter, onChange }) {
           onClick={() => onChange(tab.value)}
           aria-pressed={filter === tab.value}
           className={`rounded px-3 py-1 ${
-            filter === tab.value ? "bg-blue-600 text-white" : "bg-gray-200"
+            filter === tab.value
+              ? "bg-blue-600 text-white"
+              : "bg-gray-200 dark:bg-gray-700"
           }`}
         >
           {tab.label}

@@ -6,6 +6,10 @@ import TaskForm from "./components/TaskForm";
 import FilterTabs from "./components/FilterTabs";
 import Toolbar from "./components/Toolbar";
 import TaskList from "./components/TaskList";
+import useTheme from "./hooks/useTheme";
+import ThemeToggle from "./components/ThemeToggle";
+import useUndoDelete from "./hooks/useUndoDelete";
+import UndoToast from "./components/UndoToast";
 
 export default function App() {
   const { tasks, status, retry, addTask, toggleTask, editTask, deleteTask } =
@@ -13,7 +17,9 @@ export default function App() {
   const [filter, setFilter] = useState("all");
   const [query, setQuery] = useState("");
   const [sortBy, setSortBy] = useState("none");
-
+  const { theme, toggleTheme } = useTheme();
+  const { pendingId, pendingTitle, requestDelete, undo } =
+    useUndoDelete(deleteTask);
   if (status !== "ready")
     return <StatusMessage status={status} onRetry={retry} />;
 
@@ -23,6 +29,7 @@ export default function App() {
   return (
     <main className="mx-auto max-w-2xl p-4">
       <h1 className="mb-4 text-2xl font-bold">Task Manager</h1>
+      <ThemeToggle theme={theme} onToggle={toggleTheme} />
       <TaskForm onAdd={addTask} />
       <div className="flex flex-wrap items-center justify-between gap-2">
         <FilterTabs filter={filter} onChange={setFilter} />

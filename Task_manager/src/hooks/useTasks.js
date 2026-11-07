@@ -12,17 +12,11 @@ function readStoredTasks() {
 }
 
 export default function useTasks() {
-  const [tasks, setTasks] = useState([]);
-  const [status, setStatus] = useState("loading"); // loading | ready | error
+  const [storedTasks] = useState(readStoredTasks);
+  const [tasks, setTasks] = useState(storedTasks ?? []);
+  const [status, setStatus] = useState(storedTasks ? "ready" : "loading"); // loading | ready | error
 
-  const load = useCallback(async () => {
-    const stored = readStoredTasks();
-    if (stored) {
-      setTasks(stored);
-      setStatus("ready");
-      return;
-    }
-    setStatus("loading");
+  const fetchTasks = useCallback(async () => {
     try {
       const response = await fetch("/tasks.json");
       if (!response.ok) throw new Error("Failed to load tasks");
@@ -34,14 +28,19 @@ export default function useTasks() {
   }, []);
 
   useEffect(() => {
-    load();
-  }, [load]);
+    if (!storedTasks) fetchTasks();
+  }, [storedTasks, fetchTasks]);
 
   useEffect(() => {
     if (status === "ready") {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
     }
   }, [tasks, status]);
+
+  const retry = () => {
+    setStatus("loading");
+    fetchTasks();
+  };
 
   const addTask = (title, priority, dueDate) => {
     const task = {
@@ -69,13 +68,5 @@ export default function useTasks() {
   const deleteTask = (id) =>
     setTasks((current) => current.filter((task) => task.id !== id));
 
-  return {
-    tasks,
-    status,
-    retry: load,
-    addTask,
-    toggleTask,
-    editTask,
-    deleteTask,
-  };
+  return { tasks, status, retry, addTask, toggleTask, editTask, deleteTask };
 }

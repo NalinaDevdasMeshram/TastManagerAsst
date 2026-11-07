@@ -62,7 +62,7 @@ export default function TaskForm({ onAdd }) {
       />
       <button
         type="submit"
-        className="rounded bg-blue-600 px-4 py-2 text-white"
+        className="w-full rounded border p-2 dark:border-gray-600 dark:bg-gray-800 dark:text-white sm:w-auto"
       >
         Add
       </button>

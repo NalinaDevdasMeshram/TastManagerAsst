@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { isOverdue } from "../utils/taskUtils";
+import { isOverdue } from "../utils/taskUtils.js";
 
 const BADGE_STYLES = {
-  High: "bg-red-100 text-red-700",
-  Medium: "bg-yellow-100 text-yellow-700",
-  Low: "bg-green-100 text-green-700",
+  High: "bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-200",
+  Medium:
+    "bg-yellow-100 text-yellow-700 dark:bg-yellow-900 dark:text-yellow-200",
+  Low: "bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-200",
 };
 
 export default function TaskItem({ task, onToggle, onEdit, onDelete }) {
