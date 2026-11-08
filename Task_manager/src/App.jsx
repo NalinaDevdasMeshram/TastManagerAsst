@@ -1,6 +1,6 @@
 import { useState } from "react";
 import useTasks from "./hooks/useTasks";
-import { countActive, getVisibleTasks } from "./utils/taskUtils";
+import { getVisibleTasks, countActive } from "./utils/taskUtils";
 import StatusMessage from "./components/StatusMessage";
 import TaskForm from "./components/TaskForm";
 import FilterTabs from "./components/FilterTabs";
