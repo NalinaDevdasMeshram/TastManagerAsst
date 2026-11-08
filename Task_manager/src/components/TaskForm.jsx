@@ -22,7 +22,7 @@ export default function TaskForm({ onAdd }) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="mb-4 flex flex-col gap-2 sm:flex-row"
+      className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-start"
     >
       <div className="flex-1">
         <label htmlFor="new-title" className="sr-only">
@@ -33,9 +33,13 @@ export default function TaskForm({ onAdd }) {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder="Add a task..."
-          className="w-full rounded border p-2"
+          className="w-full rounded border p-2 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100 dark:placeholder-gray-400"
         />
-        {error && <p className="mt-1 text-sm text-red-600">{error}</p>}
+        {error && (
+          <p className="mt-1 min-h-5 text-sm text-red-600 dark:text-red-400">
+            {error}
+          </p>
+        )}
       </div>
       <label htmlFor="new-priority" className="sr-only">
         Priority
@@ -44,7 +48,7 @@ export default function TaskForm({ onAdd }) {
         id="new-priority"
         value={priority}
         onChange={(e) => setPriority(e.target.value)}
-        className="rounded border p-2"
+        className="rounded border p-2 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"
       >
         <option>Low</option>
         <option>Medium</option>
@@ -58,7 +62,7 @@ export default function TaskForm({ onAdd }) {
         type="date"
         value={dueDate}
         onChange={(e) => setDueDate(e.target.value)}
-        className="rounded border p-2"
+        className="rounded border p-2 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100 dark:scheme-dark"
       />
       <button
         type="submit"
