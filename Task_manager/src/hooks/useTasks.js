@@ -28,7 +28,7 @@ export default function useTasks() {
   }, []);
 
   useEffect(() => {
-    if (!storedTasks) fetchTasks();
+    if (!storedTasks);
   }, [storedTasks, fetchTasks]);
 
   useEffect(() => {

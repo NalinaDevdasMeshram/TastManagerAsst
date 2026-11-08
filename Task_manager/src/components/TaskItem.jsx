@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { isOverdue } from "../utils/taskUtils.js";
+import { isOverdue } from "../utils/taskUtils";
 
 const BADGE_STYLES = {
   High: "bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-200",
@@ -34,7 +34,7 @@ export default function TaskItem({ task, onToggle, onEdit, onDelete }) {
   };
 
   const handleDelete = () => {
-    if (window.confirm(`Delete "${task.title}"?`)) onDelete(task.id);
+    if (window.confirm(`Delete "${task.title}"?`)) onDelete(task);
   };
 
   return (

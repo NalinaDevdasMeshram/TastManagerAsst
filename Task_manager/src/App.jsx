@@ -20,16 +20,20 @@ export default function App() {
   const { theme, toggleTheme } = useTheme();
   const { pendingId, pendingTitle, requestDelete, undo } =
     useUndoDelete(deleteTask);
+
   if (status !== "ready")
     return <StatusMessage status={status} onRetry={retry} />;
 
-  const visibleTasks = getVisibleTasks(tasks, { filter, query, sortBy });
-  const left = countActive(tasks);
+  const liveTasks = tasks.filter((task) => task.id !== pendingId);
+  const visibleTasks = getVisibleTasks(liveTasks, { filter, query, sortBy });
+  const left = countActive(liveTasks);
 
   return (
     <main className="mx-auto max-w-2xl p-4">
-      <h1 className="mb-4 text-2xl font-bold">Task Manager</h1>
-      <ThemeToggle theme={theme} onToggle={toggleTheme} />
+      <header className="mb-4 flex items-center justify-between">
+        <h1 className="text-2xl font-bold">Task Manager</h1>
+        <ThemeToggle theme={theme} onToggle={toggleTheme} />
+      </header>
       <TaskForm onAdd={addTask} />
       <div className="flex flex-wrap items-center justify-between gap-2">
         <FilterTabs filter={filter} onChange={setFilter} />
@@ -47,8 +51,9 @@ export default function App() {
         tasks={visibleTasks}
         onToggle={toggleTask}
         onEdit={editTask}
-        onDelete={deleteTask}
+        onDelete={requestDelete}
       />
+      {pendingId !== null && <UndoToast title={pendingTitle} onUndo={undo} />}
     </main>
   );
 }

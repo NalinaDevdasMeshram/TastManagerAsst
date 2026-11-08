@@ -2,7 +2,7 @@ export default function StatusMessage({ status, onRetry }) {
   if (status === "loading") {
     return (
       <p role="status" className="p-6 text-center text-gray-500">
-        Loading tasks...
+        Loading tasks..
       </p>
     );
   }
