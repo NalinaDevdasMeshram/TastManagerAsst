@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { isOverdue } from "../utils/taskUtils";
+import { isOverdue } from "../Utils/taskUtils";
 
 const BADGE_STYLES = {
   High: "bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-200",
